@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Counter from "./Counter.jsx";
-import Button from "./Button.jsx";
-import NumberDisplay from "./NumberDisplay.jsx";
+import Counter from "./components/Counter.jsx";
+import Button from "./components/Button.jsx";
+import NumberDisplay from "./components/NumberDisplay.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
