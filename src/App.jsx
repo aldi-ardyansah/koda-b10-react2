@@ -1,29 +1,38 @@
-import { useState } from "react";
-import Counter from "./components/Counter.jsx";
-import Button from "./components/Button.jsx";
-import NumberDisplay from "./components/NumberDisplay.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement } from "./redux/slices/counterSlice.js";
+
+function Button({ onClick, children }) {
+  return (
+    <button type="button" onClick={onClick} className="text-white bg-blue-500 p-4 rounded-md cursor-pointer hover:bg-blue-700">
+      {children}
+    </button>
+  );
+}
+
+function Counter({ children }) {
+  return (
+    <div className="bg-black w-[25vw] h-[25vh] min-w-50 min-h-30 rounded-md flex flex-row items-center justify-center gap-4">
+      {children}
+    </div>
+  );
+}
+
+function NumberDisplay({ count }) {
+  return (
+    <span className="text-white text-6xl w-20 text-center">{count}</span>
+  );
+}
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  function counting(variant) {
-    setCount((prevCount) => {
-      if (variant === "plus") {
-        return Math.min(prevCount + 1, 10);
-      }
-      else if (variant === "minus") {
-        return Math.max(prevCount - 1, 0);
-      }
-      return prevCount;
-    });
-  }
+  const count = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
 
   return (
     <main className="flex min-h-screen items-center justify-center">
       <Counter>
-        <Button variant="minus" onClick={counting} />
+        <Button onClick={() => dispatch(decrement())}>-</Button>
         <NumberDisplay count={count} />
-        <Button variant="plus" onClick={counting} />
+        <Button onClick={() => dispatch(increment())}>+</Button>
       </Counter>
     </main>
   );
